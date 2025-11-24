@@ -14,7 +14,11 @@ const creatPost = async (req: Request, res:Response) => {
 // get all posts controller
 const getPosts = async (req: Request,res: Response) => {
     try {
-        const posts = await PostService.getAllPosts()
+        // pagination (offset)
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
+
+        const posts = await PostService.getAllPosts({page,limit})
         res.status(201).send(posts)
     } catch (error) {
         res.status(500).send(error)
