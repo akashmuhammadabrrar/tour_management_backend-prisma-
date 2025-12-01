@@ -17,8 +17,10 @@
     "@prisma/client": "^6.19.0",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^5.1.0",
     "http": "^0.0.1-security",
+    "node-fetch": "^3.3.2",
     "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
