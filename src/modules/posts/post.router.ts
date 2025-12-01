@@ -9,6 +9,9 @@ router.post("/",
 router.get("/",
     PostController.getPosts
 )
+router.get("/stats",
+    PostController.getBlogStats
+)
 router.get("/:id", 
     PostController.getPost
 )

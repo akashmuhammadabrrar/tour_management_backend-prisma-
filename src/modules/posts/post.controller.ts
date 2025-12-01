@@ -17,8 +17,16 @@ const getPosts = async (req: Request,res: Response) => {
         // pagination (offset)
         const page = Number(req.query.page) || 1;
         const limit = Number(req.query.limit) || 10;
+        // search query
+        const search = (req.query.search as string) || "";
+        // isFeatured filterd
+        const isFeatured  = req.query.isFeatured ? req.query.isFeatured === "true": undefined;
+        // filterd by tags
+        const tags = req.query.tags? (req.query.tags as string).split(","): []
 
-        const posts = await PostService.getAllPosts({page,limit})
+
+
+        const posts = await PostService.getAllPosts({page,limit,search,isFeatured:isFeatured,tags})
         res.status(201).send(posts)
     } catch (error) {
         res.status(500).send(error)
@@ -80,11 +88,23 @@ const deletePost = async (req:Request, res:Response) => {
         })
     }
 }
+const getBlogStats = async(req: Request, res: Response)=> {
+ try {
+    const result  = await PostService.getBlogStats();
+    res.json(result)
+ } catch (error) {
+    res.status(500).json({
+        error: "failed to fetch stats",
+        details: error
+    })
+ }
+}
 
 export const PostController = {
     creatPost,
     getPosts,
     updatePost,
     deletePost,
-    getPost
+    getPost,
+    getBlogStats
 }
